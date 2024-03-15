@@ -1,0 +1,9 @@
+{
+  "name": "far-me-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "projects/far-me-e2e/src",
+  "targets": {},
+  "implicitDependencies": ["far-me"],
+  "tags": []
+}

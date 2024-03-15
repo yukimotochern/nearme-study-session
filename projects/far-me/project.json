@@ -1,0 +1,8 @@
+{
+  "name": "far-me",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/far-me/src",
+  "projectType": "application",
+  "targets": {},
+  "tags": []
+}

@@ -1,0 +1,18 @@
+{
+  "name": "far-me",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-native": "*",
+    "@testing-library/react-native": "*",
+    "metro-config": "*",
+    "react-native": "*",
+    "expo": "*",
+    "react-native-svg": "*",
+    "react-native-web": "*"
+  },
+  "scripts": {
+    "eas-build-pre-install": "cd ../../ && node tools/scripts/eas-build-pre-install.mjs . projects/far-me && cp package-lock.json projects/far-me",
+    "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . projects/far-me"
+  }
+}
