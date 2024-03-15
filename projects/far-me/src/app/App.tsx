@@ -12,7 +12,7 @@ export const App = () => {
     }}>
       <Text style={{
         fontSize: 32
-      }}>Hi, { foo() }</Text>
+      }}>Hi, { foo() }~~</Text>
     </View>
   );
 };
