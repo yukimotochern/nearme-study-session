@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["nearme"]
+  "cSpell.words": [
+    "autoload",
+    "datasource",
+    "fkey",
+    "nearme",
+    "pkey",
+    "sequelize"
+  ]
 }

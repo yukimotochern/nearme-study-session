@@ -1,0 +1,56 @@
+{
+  "name": "drizzle",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/orm-battle/drizzle/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/projects/orm-battle/drizzle",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "projects/orm-battle/drizzle/src/main.ts",
+        "tsConfig": "projects/orm-battle/drizzle/tsconfig.app.json",
+        "assets": ["projects/orm-battle/drizzle/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "drizzle:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "drizzle:build:development"
+        },
+        "production": {
+          "buildTarget": "drizzle:build:production"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "prisma",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/orm-battle/prisma/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/projects/orm-battle/prisma",
+        "format": ["cjs"],
+        "main": "projects/orm-battle/prisma/src/main.ts",
+        "tsConfig": "projects/orm-battle/prisma/tsconfig.app.json",
+        "assets": ["projects/orm-battle/prisma/src/assets"],
+        "bundle": false,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "dependsOn": ["^build"],
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "prisma:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "prisma:build:development"
+        },
+        "production": {
+          "buildTarget": "prisma:build:production"
+        }
+      }
+    },
+    "migrate": {
+      "command": "npx prisma migrate dev --schema=\"projects/orm-battle/prisma/prisma/schema.prisma\""
+    }
+  }
+}
