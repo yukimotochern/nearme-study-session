@@ -2,6 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
+    "strict": true,
     "sourceMap": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -14,7 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nearme-study-session/foo": ["lib/foo/src/index.ts"]
+      "@nearme-study-session/foo": ["lib/foo/src/index.ts"],
+      "@nearme-study-session/open-telemetry-intro-instrumentation": [
+        "open-telemetry-intro/instrumentaion/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

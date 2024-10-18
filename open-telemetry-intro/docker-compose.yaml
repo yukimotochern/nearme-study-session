@@ -1,0 +1,107 @@
+name: open-telemetry-intro
+services:
+  util:
+    build:
+      context: .
+      dockerfile: 'open-telemetry-intro/Dockerfile'
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+  user:
+    build:
+      context: .
+      dockerfile: 'open-telemetry-intro/Dockerfile'
+    command: 'npx nx run open-telemetry-intro-user:serve:development'
+    environment:
+      PORT: 4631
+      DATABASE_URL: 'postgresql://user:pass@postgres-user:5432/user'
+    ports:
+      - 4631:4631
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+    depends_on:
+      postgres-user-job:
+        condition: service_completed_successfully
+  postgres-user-job:
+    build:
+      context: .
+      dockerfile: 'open-telemetry-intro/Dockerfile'
+    command: 'npx prisma db push --accept-data-loss --force-reset --schema=./open-telemetry-intro/user/prisma/schema.prisma'
+    environment:
+      DATABASE_URL: 'postgresql://user:pass@postgres-user:5432/user'
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+    depends_on:
+      postgres-user:
+        condition: service_healthy
+  postgres-user:
+    image: postgres:17
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: user
+      POSTGRES_DB: user
+    volumes:
+      - postgres-user:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready', '-d', 'user']
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 1s
+  post:
+    build:
+      context: .
+      dockerfile: 'open-telemetry-intro/Dockerfile'
+    command: 'npx nx run open-telemetry-intro-post:serve:development'
+    environment:
+      PORT: 7852
+      DATABASE_URL: 'postgresql://post:pass@postgres-post:5432/post'
+      USER_API_URL: http://user:4631
+    ports:
+      - 7852:7852
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+    depends_on:
+      postgres-post-job:
+        condition: service_completed_successfully
+  postgres-post:
+    image: postgres:17
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: post
+      POSTGRES_DB: post
+    volumes:
+      - postgres-post:/var/lib/postgresql/data
+    ports:
+      - '5433:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready', '-d', 'post']
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 1s
+  postgres-post-job:
+    build:
+      context: .
+      dockerfile: 'open-telemetry-intro/Dockerfile'
+    command: 'npx prisma db push --accept-data-loss --force-reset --schema=./open-telemetry-intro/post/prisma/schema.prisma'
+    environment:
+      DATABASE_URL: 'postgresql://post:pass@postgres-post:5432/post'
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+    depends_on:
+      postgres-post:
+        condition: service_healthy
+volumes:
+  node_modules:
+  postgres-user:
+  postgres-post:

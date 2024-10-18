@@ -1,0 +1,34 @@
+# dependencies
+node_modules
+
+# IDE - VSCode
+.vscode/*
+
+# compiled output
+dist
+/out-tsc
+tmp
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Next.js
+.next
+out
+
+# env
+.env
+
+# Nx
+.nx/cache
+.nx/workspace-data
+
+# kube client
+.kube
+
+# git
+.git
+.gitignore
+
+.expo/

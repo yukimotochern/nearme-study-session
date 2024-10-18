@@ -1,0 +1,64 @@
+{
+  "name": "open-telemetry-intro-user",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "open-telemetry-intro/user/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/open-telemetry-intro/user",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "open-telemetry-intro/user/src/main.ts",
+        "tsConfig": "open-telemetry-intro/user/tsconfig.app.json",
+        "assets": ["open-telemetry-intro/user/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "generateLockfile": true,
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "open-telemetry-intro-user:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "open-telemetry-intro-user:build:development"
+        },
+        "production": {
+          "buildTarget": "open-telemetry-intro-user:build:production"
+        }
+      }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f open-telemetry-intro/user/Dockerfile . -t open-telemetry-intro-service1"
+    },
+    "prisma-generate": {
+      "command": "prisma generate --schema=open-telemetry-intro/user/prisma/schema.prisma"
+    }
+  }
+}

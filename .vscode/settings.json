@@ -1,10 +1,19 @@
 {
   "cSpell.words": [
     "autoload",
+    "cyanchern",
+    "daemonset",
     "datasource",
     "fkey",
+    "healthcheck",
+    "isready",
     "nearme",
+    "opentelemetry",
+    "otel",
+    "otlp",
     "pkey",
-    "sequelize"
+    "sequelize",
+    "Signoz",
+    "Statefulset"
   ]
 }

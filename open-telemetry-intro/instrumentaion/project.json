@@ -1,0 +1,20 @@
+{
+  "name": "open-telemetry-intro-instrumentation",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "open-telemetry-intro/instrumentaion/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/open-telemetry-intro/instrumentaion",
+        "tsConfig": "open-telemetry-intro/instrumentaion/tsconfig.lib.json",
+        "packageJson": "open-telemetry-intro/instrumentaion/package.json",
+        "main": "open-telemetry-intro/instrumentaion/src/index.ts",
+        "assets": ["open-telemetry-intro/instrumentaion/*.md"]
+      }
+    }
+  }
+}

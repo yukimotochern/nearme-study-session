@@ -1,0 +1,12 @@
+{
+  "name": "open-telemetry-intro-pulumi",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "open-telemetry-intro/pulumi/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "dev": {
+      "command": "tsx --tsconfig open-telemetry-intro/pulumi/tsconfig.app.json open-telemetry-intro/pulumi/src/main.ts"
+    }
+  }
+}
